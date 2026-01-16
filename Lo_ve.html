@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jawab Jujur 😈❤️</title>
+
+<style>
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comic Sans MS', cursive;
+    overflow: hidden;
+}
+
+.box {
+    background: white;
+    padding: 30px 40px 90px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+h1 {
+    color: #ff004c;
+    margin-bottom: 25px;
+}
+
+button {
+    position: absolute;
+    padding: 14px 28px;
+    font-size: 18px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+#iya {
+    background: #ff004c;
+    color: white;
+    left: 40px;
+    bottom: 20px;
+}
+
+#tidak {
+    background: #555;
+    color: white;
+    right: 40px;
+    bottom: 20px;
+}
+
+/* MODE MARAH */
+.marah {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: red;
+    color: white;
+    text-align: center;
+    padding-top: 25vh;
+    font-size: 34px;
+    animation: shake 0.15s infinite;
+    z-index: 999;
+}
+
+@keyframes shake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-10px,0); }
+    50% { transform: translate(10px,0); }
+    75% { transform: translate(0,-10px); }
+    100% { transform: translate(0,10px); }
+}
+
+.emoji {
+    font-size: 70px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Smn sayang aku ndak? 🥺❤️</h1>
+    <button id="iya">SAYANG</button>
+    <button id="tidak">NDAK</button>
+</div>
+
+<div class="marah" id="marah">
+    KOK NDAKK 😡💔<br>
+    APAAAA MAKSUDMUUUUU????!!!<br>
+    <div class="emoji">💢😡😡🔥</div>
+</div>
+
+<script>
+const iya = document.getElementById("iya");
+const tidak = document.getElementById("tidak");
+const marah = document.getElementById("marah");
+
+// GANTI NOMOR WA KAMU
+const nomorWA = "62889-8949-8425";
+
+const pesan = encodeURIComponent(
+  "Emg aku ndak sayang kamu y!!😏😏"
+);
+
+function playBoom() {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // ===== BOOM / DUARR =====
+    const boom = audioCtx.createOscillator();
+    const boomGain = audioCtx.createGain();
+
+    boom.type = "square"; // kasar & nendang
+    boom.frequency.setValueAtTime(120, audioCtx.currentTime);
+    boom.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 2);
+
+    boomGain.gain.setValueAtTime(1.2, audioCtx.currentTime);
+    boomGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2);
+
+    boom.connect(boomGain);
+    boomGain.connect(audioCtx.destination);
+
+    boom.start();
+    boom.stop(audioCtx.currentTime + 2);
+
+    // ===== SIRENE MARAH =====
+    const siren = audioCtx.createOscillator();
+    const sirenGain = audioCtx.createGain();
+
+    siren.type = "sawtooth";
+    siren.frequency.setValueAtTime(600, audioCtx.currentTime);
+    siren.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 1);
+    siren.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 2);
+
+    sirenGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+    sirenGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2);
+
+    siren.connect(sirenGain);
+    sirenGain.connect(audioCtx.destination);
+
+    siren.start();
+    siren.stop(audioCtx.currentTime + 2);
+}
+
+tidak.addEventListener("click", () => {
+    playBoom();        // 💥 DUARR
+    playVoiceMarah(); // 😡 suara marah
+    vibrateHP();      // 📳 geter HP
+
+    const flash = document.createElement("div");
+    flash.className = "flash";
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 400);
+
+    marah.style.display = "block";
+
+    setTimeout(() => {
+        window.location.href = `https://wa.me/${nomorWA}?text=${pesan}`;
+    }, 2000);
+});
+
+// === IYA PINDAH 5X TERUS ILANG ===
+let hitungIya = 0;
+
+function pindahIya() {
+    hitungIya++;
+
+    if (hitungIya >= 10) {
+        iya.style.display = "none";
+        return;
+    }
+
+    const x = Math.random() * (window.innerWidth - iya.offsetWidth);
+    const y = Math.random() * (window.innerHeight - iya.offsetHeight);
+
+    iya.style.left = x + "px";
+    iya.style.top = y + "px";
+}
+
+iya.addEventListener("mouseenter", pindahIya);
+iya.addEventListener("touchstart", pindahIya);
+
+// === GAK → DUARR → MARAH → WA ===
+tidak.addEventListener("click", () => {
+    playBoom();                 // 🔊 DUARR
+    marah.style.display = "block";
+
+    setTimeout(() => {
+        window.location.href = `https://wa.me/${nomorWA}?text=${pesan}`;
+    }, 2000);
+});
+</script>
+
+</body>
+</html>
